@@ -1,0 +1,23 @@
+import requests
+
+token = "balu"
+repo_name = "new-repository"
+description = "This is your new repository"
+private = False
+
+headers = {
+    "Authorization": f"token {token}"
+}
+
+data = {
+    "name": repo_name,
+    "description": description,
+    "private": private
+}
+
+response = requests.post("https://api.github.com/user/repos", headers=headers, json=data)
+
+if response.status_code == 201:
+    print(f"Создан репозиторий: {response.json()['full_name']}")
+else:
+    print(f"Ошибка: {response.json()}")
